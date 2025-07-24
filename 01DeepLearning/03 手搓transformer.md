@@ -1,11 +1,11 @@
-本文来自[I made a transformer by hand](https://vgel.me/posts/handmade-transformer/) . 一直以来，笔者对 transformer 的注意力机制、qkv的理解都浮于表面，当然也不是说我看完 [I made a transformer by hand](https://vgel.me/posts/handmade-transformer/) 后理解有多深入，但确实加深了我对相关概念的理解，故搬运此文章，部分表述基于笔者的理解加以修改。
-手动制做一个Transformer来预测一个简单的序列，权重没有通过训练，而是手动分配。
-要完成这个Transformer，基本步骤为：
-1、选择一个任务
-2、设计模型
-3、设计位置嵌入和词嵌入矩阵
-4、设计一个transformer block
-5、使用之前的词嵌入矩阵，投影出下一个token的logits
+本文来自[I made a transformer by hand](https://vgel.me/posts/handmade-transformer/) . 一直以来，笔者对 transformer 的注意力机制、qkv的理解都浮于表面，当然也不是说我看完 [I made a transformer by hand](https://vgel.me/posts/handmade-transformer/) 后理解有多深入，但确实加深了我对相关概念的理解，故搬运此文章，部分表述基于笔者的理解加以修改。  
+手动制做一个Transformer来预测一个简单的序列，权重没有通过训练，而是手动分配。  
+要完成这个Transformer，基本步骤为：  
+- 1、选择一个任务
+- 2、设计模型
+- 3、设计位置嵌入和词嵌入矩阵
+- 4、设计一个transformer block
+- 5、使用之前的词嵌入矩阵，投影出下一个token的logits
 # 一、选择任务
 预测序列 `"aabaabaabaab..."` （也就是说 `(aab)*` ），这需要查询前两个 token 来知道输出应该是 `a` （前两个 token 是 `ab` 或 `ba` ）还是 `b` （前两个 token 是 `aa` ）。
 ## 设计 tokenization
